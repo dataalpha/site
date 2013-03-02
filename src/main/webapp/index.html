@@ -31,7 +31,7 @@
 
 </head>
 
-<body id="home" data-spy="scroll" data-target=".navbar">
+<body id="home" class="lift:content_id=main" data-spy="scroll" data-target=".navbar">
     
     <!-- HEADER CONTAINER -->
     <!-- CONTENT -->
@@ -67,6 +67,9 @@
             </div>
         </nav>
     </div>
+
+    <!-- Lift Dynamic Content -->
+    <div id="main" class="lift:surround?with=default;at=content">
 
     <!-- Start Callout -->
     <div class="full callout">
@@ -112,8 +115,6 @@
         </div>
     </div>
                     
-                            
-
     <!-- PORTFOLIO -->
     <div class="row section" id="portfolio">
         <div class="container">
@@ -225,10 +226,7 @@
                 </div>
                 <div class="span3 offset1" >
                     <h3>Contact info</h3>
-
-                    <p>121 North Avenue<br />
-                        Burlington, VT<br />
-                        05454
+                        
                         Phone: (123) 456-7890<br />
                         Fax: (123) 456-7890<br />
                         Email: email@address.com<br />
@@ -238,6 +236,9 @@
         </div> <!-- /container -->
     </div> <!-- /form  -->  
     <!-- END CONTACT FORM  -->
+
+    <!-- /Lift Dynamic Content -->
+    </div>
 
 </div> <!-- /container -->
 
