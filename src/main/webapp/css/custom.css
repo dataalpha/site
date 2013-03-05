@@ -73,6 +73,19 @@ nav.primary ul li a:hover {
   text-shadow:none;
 } 
 
+.logo ul li a a:active a:visited a:hover {
+    color:#000;
+    text-decoration:none;
+}
+
+.logo.img {
+
+}
+
+.logo.text ul li a a:active a:visited a:hover {
+    color:#000;
+    text-decoration:none;
+}
 
 /*PORTFOLIO*/
 
