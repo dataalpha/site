@@ -40,8 +40,10 @@ nav.primary ul li a:active, nav.primary ul li a.selected { background:; text-sha
 } 
 
 .main { 
-  padding:20px 20px 0; 
-  margin:70px 0 0 0; 
+  /*padding:20px 20px 0 0; 
+  margin:70px 0 0 0;*/
+  padding:0px 0 0 0; 
+  margin:0px 0 0 0; 
 } 
   
 
@@ -125,7 +127,10 @@ nav.primary ul li a:hover {
 
 .header{ padding:0px;}
 
-.callout{background:#f30; padding:60px 0;}
+#vizcallout {width:100%; height:150px; border:0; float:right; margin:0px; padding:0px;}
+.vizcallout{background:#fff; padding:30px 0;}
+
+.callout{background:#f30; padding:30px 0;}
 .section{padding:4.5% 0; border-bottom: 1px solid #CCC;}
 
 .companycallout{ margin-bottom:20px;}
@@ -146,7 +151,7 @@ h2.explain{line-height:34px;}
 .homecallout{color:#A2A9B4;}
 .homecallout h2{font:bold 18px/40px "Open Sans",Helvetica,Arial,Sans-serif; color:#2E3846;}
 
-#vizcallout {width:100%; height:600px; border:0; float:right;}
+
 
 /*PORTFOLIO*/
 #portfolio{padding-top:100px; margin-top: 80px; padding-bottom:80px;}

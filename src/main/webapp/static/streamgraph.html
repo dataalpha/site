@@ -2,24 +2,15 @@
 <html>
 	<head>
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript">window.jQuery || document.write('<script src="js/jquery.js">\x3C/script>')</script>
+        <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript">window.d3 || document.write('<script src="js/d3.v3.min.js">\x3C/script>')</script>
 		<meta charset="utf-8">
-		<style>
-			.line {
-				fill: none;
-				stroke: #000;
-				stroke-width: 1.5px;
-			}
-			.axis path, .axis line {
-				fill: none;
-				stroke: #000;
-				shape-rendering: crispEdges;
-			}
-			svg {
-				font: 10px sans-serif;
-			}
-		</style>
 	</head>
-
+    <style>
+    /*html {}
+    body {margin:0px;padding:0px;}*/
+    </style>
     <!-- with thanks to http://lyngbaek.com/real-time-stream-graph.html for showing how 
             to make a realtime streamgraph.  I just replaced the random number generator 
             with realtime mouse coordinates. -->
@@ -29,11 +20,10 @@
 
 	<body>
 		<div id="chart">
-		<script src="http://mbostock.github.com/d3/d3.js?2.7.2"></script>
 		<script>
 
-            var l = 2;
-            var n = 100;
+            var l = 2; // number of stream channels (layers)
+            var n = 100;  // number of samples per layer
             var random = d3.random.normal(0, .2);
             var a = [];
             var b = [];
@@ -78,7 +68,6 @@
                     }
               });
             }
-        
 
             function stream_index(d, i) {
               return {x: i, y: Math.max(0, d)};
@@ -87,10 +76,11 @@
             var data0 = d3.layout.stack().offset("wiggle")(stream_layers(l,n,0));
             var data1 = d3.layout.stack().offset("wiggle")(stream_layers(l,n,0));
 
-            var color = d3.interpolateRgb("#aad", "#556");
+            //var color = d3.interpolateRgb("#aad", "#556");
+            var color = d3.interpolateRgb("#f30", "#fff");
 
 			var w = $(window).width();
-			var h = 100;
+			var h = 150;
             var mx = n - 1;
             var my = d3.max(data0.concat(data1), function(d) {
                   return d3.max(d, function(d) {
