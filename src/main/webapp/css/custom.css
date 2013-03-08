@@ -13,8 +13,14 @@
   -o-transition:all .3s ease-in-out; 
   transition:all .3s ease-in-out; 
 } 
-  
-.entry:hover .hover { opacity:1; } 
+
+.highlight {
+    font-weight:bold;
+}
+
+.quote {
+    font-style:italic; 
+}
 
 /*NAV*/
 
@@ -87,6 +93,17 @@ nav.primary ul li a:hover {
 .logo.text ul li a a:active a:visited a:hover {
     color:#000;
     text-decoration:none;
+}
+
+/* bootstrap.css override */
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  /*z-index: 9999;*/
+  z-index: 9998;
+  margin-bottom: 0;
 }
 
 /*PORTFOLIO*/
