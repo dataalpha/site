@@ -1,124 +1,118 @@
 <!DOCTYPE html>
 <html>
-	<head>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-        <script type="text/javascript">window.jQuery || document.write('<script src="js/jquery.js">\x3C/script>')</script>
-        <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-        <script type="text/javascript">window.d3 || document.write('<script src="js/d3.v3.min.js">\x3C/script>')</script>
-		<meta charset="utf-8">
-	</head>
-    <style>
-    /*html {}
-    body {margin:0px;padding:0px;}*/
-    </style>
-    <!-- with thanks to http://lyngbaek.com/real-time-stream-graph.html for showing how 
-            to make a realtime streamgraph.  I just replaced the random number generator 
-            with realtime mouse coordinates. -->
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">window.jQuery || document.write('<script src="/js/jquery.js">\x3C/script>')</script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript">window.d3 || document.write('<script src="/js/d3.v3.min.js">\x3C/script>')</script>
+    <meta charset="utf-8">
+</head>
+<!--<style>
+    html {}
+    body {margin:0px;padding:0px;}
+</style>-->
+<!-- with thanks to http://lyngbaek.com/real-time-stream-graph.html for showing how 
+        to make a realtime streamgraph.  I just replaced the random number generator 
+        with realtime mouse coordinates. -->
 
-    <!-- also thanks to Mike Bostock's examples for showing how to use an iframe to position 
-            the streamgraph on the page the easy way:  http://bl.ocks.org/mbostock/4060954 -->
+<!-- also thanks to Mike Bostock's examples for showing how to use an iframe to position 
+        the streamgraph on the page the easy way:  http://bl.ocks.org/mbostock/4060954 -->
 
-	<body>
-		<div id="chart">
-		<script>
+<body>
+    <div id="chart"></div>
+    <script>
 
-            var l = 2; // number of stream channels (layers)
-            var n = 100;  // number of samples per layer
-            var random = d3.random.normal(0, .2);
-            var a = [];
-            var b = [];
+        var l = 2; // number of stream channels (layers)
+        var n = 100;  // number of samples per layer
+        var random = d3.random.normal(0, .2);
+        var a = [];
+        var b = [];
 
-            /* To replace Math.random() with mouse coords, we can't use the raw coords, 
-            *   but have to convert them to a number from 0 to 1, since this is what d3.js
-            *   expects.  Will do this by getting the screen width and heigth and dividing 
-            *   mouse coord x and y by each, respectively.
-            */ 
-			var denom = { x: $(window).width(), y: $(window).height() };
-            var currentMouseCoord = { x: 1, y: 1 };
-            $(document).mousemove(function(e) {
-                currentMouseCoord.x = e.pageX/denom.x;
-                currentMouseCoord.y = e.pageY/denom.y;
-                //alert(currentMouseCoord.x+', '+currentMouseCoord.y);
-            }).mouseover(); 
+        /*  Replace Math.random() with mouse coords, converted to a 0 - 1 range. */ 
+        var denom = { x: $(window).width(), y: $(window).height() };
+        var currentMouseCoord = { x: 1, y: 1 };
+        $(document).mousemove(function(e) {
+            currentMouseCoord.x = e.pageX/denom.x;
+            currentMouseCoord.y = e.pageY/denom.y;
+        }).mouseover(); 
 
-            function stream_layers(l, m, o) {
-                return d3.range(l).map(function(d,i) {
-                    if (i == 0) {
-                        //for (idx = 0; idx < m; idx++) a[idx] = .01 + .01 * Math.random();
-                        for (idx = 0; idx < m; idx++) a[idx] = .01 + .01 * currentMouseCoord.x;
-                        return a.map(stream_index);
-                    } else if (i ==1) {
-                        //for (idx = 0; idx < m; idx++) b[idx] = .01 + .01 * Math.random();
-                        for (idx = 0; idx < m; idx++) b[idx] = .01 + .01 * currentMouseCoord.y;
-                        return b.map(stream_index);
-                    }
+        function stream_layers(l, m, o) {
+            return d3.range(l).map(function(d,i) {
+                if (i == 0) {
+                    //for (idx = 0; idx < m; idx++) a[idx] = .01 + .01 * Math.random();
+                    for (idx = 0; idx < m; idx++) a[idx] = .01 + .01 * currentMouseCoord.x;
+                    return a.map(stream_index);
+                } else if (i ==1) {
+                    //for (idx = 0; idx < m; idx++) b[idx] = .01 + .01 * Math.random();
+                    for (idx = 0; idx < m; idx++) b[idx] = .01 + .01 * currentMouseCoord.y;
+                    return b.map(stream_index);
+                }
+            });
+        }
+
+        function update_layers(l, m, o) {
+            return d3.range(l).map(function(d,i) {
+                if (i == 0) {
+                    //a[m] = .01 + .01 * Math.random();
+                    a[m] = .01 + .01 * currentMouseCoord.x;
+                    return a.map(stream_index);
+                } else if (i == 1) {
+                    //b[m] = .01 + .01 * Math.random();
+                    b[m] = .01 + .01 * currentMouseCoord.y;
+                    return b.map(stream_index);
+                }
+            });
+        }
+
+        function stream_index(d, i) {
+            return {x: i, y: Math.max(0, d)};
+        }
+
+        var data0 = d3.layout.stack().offset("wiggle")(stream_layers(l,n,0));
+        var data1 = d3.layout.stack().offset("wiggle")(stream_layers(l,n,0));
+
+        //var color = d3.interpolateRgb("#aad", "#556");
+        var color = d3.interpolateRgb("#f30", "#fdb");
+
+        var w = $(window).width();
+        var h = 150;
+        var mx = n - 1;
+        var my = d3.max(data0.concat(data1), function(d) {
+                return d3.max(d, function(d) {
+                return d.y0 + d.y;
                 });
-            }
+            });
 
-            function update_layers(l, m, o) {
-              return d3.range(l).map(function(d,i) {
-                    if (i == 0) {
-                        //a[m] = .01 + .01 * Math.random();
-                        a[m] = .01 + .01 * currentMouseCoord.x;
-                        return a.map(stream_index);
-                    } else if (i == 1) {
-                        //b[m] = .01 + .01 * Math.random();
-                        b[m] = .01 + .01 * currentMouseCoord.y;
-                        return b.map(stream_index);
-                    }
-              });
-            }
+        var area = d3.svg.area()
+            .x(function(d) { return d.x * w / mx; })
+            .y0(function(d) { return h - d.y0 * h / my; })
+            .y1(function(d) { return h - (d.y + d.y0) * h / my; });
 
-            function stream_index(d, i) {
-              return {x: i, y: Math.max(0, d)};
-            }
+        var vis = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
 
-            var data0 = d3.layout.stack().offset("wiggle")(stream_layers(l,n,0));
-            var data1 = d3.layout.stack().offset("wiggle")(stream_layers(l,n,0));
+        vis.selectAll("path")
+            .data(data0)
+            .enter().append("path")
+            .style("fill", function() { return color(Math.random()); })
+            .attr("d", area);
 
-            //var color = d3.interpolateRgb("#aad", "#556");
-            var color = d3.interpolateRgb("#f30", "#fdb");
+        function transition() {
 
-			var w = $(window).width();
-			var h = 150;
-            var mx = n - 1;
-            var my = d3.max(data0.concat(data1), function(d) {
-                  return d3.max(d, function(d) {
-                    return d.y0 + d.y;
-                  });
-                });
+            a.push(.01 + .01*Math.random());
+            b.push(.01 + .01*Math.random());
+            data0 = d3.layout.stack().offset("wiggle")(update_layers(l,n,0));
 
+            vis.selectAll("path").data(data0).attr("d", area).attr("transform", null).transition().duration(300).ease("linear").attr("transform", "translate(" + -w/n + ")").each("end", function (d,i) { if (i==0) transition();});
 
-            var area = d3.svg.area()
-                .x(function(d) { return d.x * w / mx; })
-                .y0(function(d) { return h - d.y0 * h / my; })
-                .y1(function(d) { return h - (d.y + d.y0) * h / my; });
+            a.shift();
+            b.shift();
+        }
 
-            var vis = d3.select("body")
-              .append("svg")
-                .attr("width", w)
-                .attr("height", h);
+        $(document).ready(transition());
 
-            vis.selectAll("path")
-                .data(data0)
-                .enter().append("path")
-                .style("fill", function() { return color(Math.random()); })
-                .attr("d", area);
-
-            function transition() {
-
-                a.push(.01 + .01*Math.random());
-                b.push(.01 + .01*Math.random());
-                data0 = d3.layout.stack().offset("wiggle")(update_layers(l,n,0));
-
-                vis.selectAll("path").data(data0).attr("d", area).attr("transform", null).transition().duration(300).ease("linear").attr("transform", "translate(" + -w/n + ")").each("end", function (d,i) { if (i==0) transition();});
-
-                a.shift();
-                b.shift();
-            }
-
-            $(document).ready(transition());
-
-		</script>
-	</body>
+    </script>
+</body>
 </html>
