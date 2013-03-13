@@ -109,7 +109,7 @@ target/
 *.perspectivev3
 .oh-my-zsh
 git-rm*
-
+.dotcloud
 
 # # Scala/SBT/Lift #
 # ##################
