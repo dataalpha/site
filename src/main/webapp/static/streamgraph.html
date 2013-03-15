@@ -28,13 +28,22 @@
         var a = [];
         var b = [];
 
-        /*  Replace Math.random() with mouse coords, converted to a 0 - 1 range. */ 
+        /*  Replace Math.random() with realtime mouse coords normalized to a 0:1 range. */ 
         var denom = { x: $(window).width(), y: $(window).height() };
         var currentMouseCoord = { x: 1, y: 1 };
+
+        /*  While mouse is moving over the streamgraph iframe, replace data stream with 
+            realtime normalized mouse coordinates */
         $(document).mousemove(function(e) {
             currentMouseCoord.x = e.pageX/denom.x;
             currentMouseCoord.y = e.pageY/denom.y;
         }).mouseover(); 
+
+        /*  When mouse leaves the streamgraph iframe, reset data stream to constant 1 */
+        $(document).mouseout(function(e) {
+            currentMouseCoord.x = 1;
+            currentMouseCoord.y = 1;
+        }).mouseout(); 
 
         function stream_layers(l, m, o) {
             return d3.range(l).map(function(d,i) {
@@ -105,14 +114,14 @@
             b.push(.01 + .01*Math.random());
             data0 = d3.layout.stack().offset("wiggle")(update_layers(l,n,0));
 
-            vis.selectAll("path").data(data0).attr("d", area).attr("transform", null).transition().duration(300).ease("linear").attr("transform", "translate(" + -w/n + ")").each("end", function (d,i) { if (i==0) transition();});
+            vis.selectAll("path").data(data0).attr("d", area).attr("transform", null).transition().duration(40).ease("linear").attr("transform", "translate(" + -w/n + ")").each("end", function (d,i) { if (i==0) transition();});
 
             a.shift();
             b.shift();
         }
 
         $(document).ready(transition());
-
+        
     </script>
 </body>
 </html>
