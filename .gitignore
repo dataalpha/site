@@ -116,3 +116,5 @@ git-rm*
 target
 *.db
 *.war
+cloudbees
+scratch*
