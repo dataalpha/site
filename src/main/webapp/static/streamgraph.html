@@ -49,11 +49,13 @@
             return d3.range(l).map(function(d,i) {
                 if (i == 0) {
                     //for (idx = 0; idx < m; idx++) a[idx] = .01 + .01 * Math.random();
-                    for (idx = 0; idx < m; idx++) a[idx] = .01 + .01 * currentMouseCoord.x;
+                    //for (idx = 0; idx < m; idx++) a[idx] = .01 + .01 * currentMouseCoord.x;
+                    for (idx = 0; idx < m; idx++) a[idx] = currentMouseCoord.x;
                     return a.map(stream_index);
                 } else if (i ==1) {
                     //for (idx = 0; idx < m; idx++) b[idx] = .01 + .01 * Math.random();
-                    for (idx = 0; idx < m; idx++) b[idx] = .01 + .01 * currentMouseCoord.y;
+                    //for (idx = 0; idx < m; idx++) b[idx] = .01 + .01 * currentMouseCoord.y;
+                    for (idx = 0; idx < m; idx++) b[idx] = currentMouseCoord.y;
                     return b.map(stream_index);
                 }
             });
@@ -63,11 +65,13 @@
             return d3.range(l).map(function(d,i) {
                 if (i == 0) {
                     //a[m] = .01 + .01 * Math.random();
-                    a[m] = .01 + .01 * currentMouseCoord.x;
+                    //a[m] = .01 + .01 * currentMouseCoord.x;
+                    a[m] = currentMouseCoord.x;
                     return a.map(stream_index);
                 } else if (i == 1) {
                     //b[m] = .01 + .01 * Math.random();
-                    b[m] = .01 + .01 * currentMouseCoord.y;
+                    //b[m] = .01 + .01 * currentMouseCoord.y;
+                    b[m] = currentMouseCoord.y;
                     return b.map(stream_index);
                 }
             });
