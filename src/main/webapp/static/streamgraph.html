@@ -37,13 +37,13 @@
         $(document).mousemove(function(e) {
             currentMouseCoord.x = e.pageX/denom.x;
             currentMouseCoord.y = e.pageY/denom.y;
-        }).mouseover(); 
+        }).mouseover();
 
         /*  When mouse leaves the streamgraph iframe, reset data stream to constant 1 */
         $(document).mouseout(function(e) {
             currentMouseCoord.x = 1;
             currentMouseCoord.y = 1;
-        }).mouseout(); 
+        }).mouseout();
 
         function stream_layers(l, m, o) {
             return d3.range(l).map(function(d,i) {
