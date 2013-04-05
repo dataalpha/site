@@ -1,5 +1,7 @@
 #!/bin/sh
 # http://blog.hawkhost.com/2010/07/02/tmux-%E2%80%93-the-terminal-multiplexer-part-2/#tmux-shell-scripting
+# http://www.tofu.org/drupal/node/183
+# https://github.com/dlbewley/tmux-scripts/blob/master/tmuxgo
 
 SESSION="dataalpha"
 ROOTDIR="~/work/dataalpha/lift_25_bootmetro_css"
