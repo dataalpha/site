@@ -1,4 +1,5 @@
 #!/bin/sh
+# http://stackoverflow.com/questions/8537149/how-to-start-tmux-with-several-windows-in-different-directories
 # http://blog.hawkhost.com/2010/07/02/tmux-%E2%80%93-the-terminal-multiplexer-part-2/#tmux-shell-scripting
 # http://www.tofu.org/drupal/node/183
 # https://github.com/dlbewley/tmux-scripts/blob/master/tmuxgo
