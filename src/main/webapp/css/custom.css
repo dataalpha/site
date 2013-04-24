@@ -147,7 +147,7 @@ nav.primary ul li a:hover {
 
 #vizcallout {width:100%; background:#fff; height:200px; border:0; margin:0; padding:0; overflow:hidden}
 /*#vizcallout {border-top:thin solid #ccc; border-bottom:thin solid #ccc;}*/
-.vizcallout {width:100%; background:#fff; border:0; margin:20px 0 0 0; padding:0; overflow:hidden}
+.vizcallout {width:100%; background:#fff; border:1; margin:20px 0 0 0; padding:0; overflow:hidden}
 
 
 .callout{background:#f30; padding:30px 0;}
@@ -212,5 +212,5 @@ h2.explain{line-height:34px;}
 
 
 /*ABOUT*/
-#about{padding-top:20px; margin-top:20px; margin-bottom:80px; padding-bottom:80px;}
+#about{padding-top:20px; margin-top:20px; margin-botbom:80px; padding-bottom:80px;}
 .about{background: #121210; color: #CBCBCB; padding:80px 0; }
