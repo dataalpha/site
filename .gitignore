@@ -119,3 +119,7 @@ target
 cloudbees
 scratch*
 troubleshooting
+
+# # Deploy # #
+# ############
+hosts
